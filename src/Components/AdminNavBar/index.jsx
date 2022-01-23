@@ -69,8 +69,11 @@ const AdminNavBar = () => {
                       >
                         Swipper
                       </a>
-                      <a className="collapse-item" href="cards.html">
-                        Cards
+                      <a
+                        className="collapse-item"
+                        onClick={() => navigate("/lmcards-edit")}
+                      >
+                        LMCards
                       </a>
                     </div>
                   </div>
