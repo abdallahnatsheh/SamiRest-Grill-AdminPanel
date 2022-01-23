@@ -1,11 +1,5 @@
 import { Modal, Button } from "react-bootstrap";
-import {
-  collection,
-  addDoc,
-  doc,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase.Config";
 import { useState } from "react";
 import {
@@ -15,7 +9,7 @@ import {
 
 const UpdateImageModal = (props) => {
   const [url, setUrl] = useState("");
-  
+
   const docRef = async () => {
     if (!url) {
       NotificationManager.warning("Url is invalid", "Error");
@@ -27,6 +21,7 @@ const UpdateImageModal = (props) => {
       });
       setUrl("");
       NotificationManager.success("Image Added", "Success");
+      props.onHide();
       return;
     }
   };

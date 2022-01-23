@@ -1,11 +1,5 @@
 import { Modal, Button } from "react-bootstrap";
-import {
-  collection,
-  addDoc,
-  doc,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase.Config";
 import { useState } from "react";
 import {
@@ -15,27 +9,18 @@ import {
 
 const AddImageModal = (props) => {
   const [url, setUrl] = useState("");
-  const deleteNote = async (note) => {
-    const noteRef = doc(db, "notes", note.id);
-    await deleteDoc(noteRef);
-  };
-  const updateNote = async (note) => {
-    const noteRef = doc(db, "notes", note.id);
-    await updateDoc(noteRef, {
-      description: "New description",
-    });
-  };
+
   const docRef = async () => {
     if (!url) {
       NotificationManager.warning("Url is invalid", "Error");
-      return ;
+      return;
     } else {
       await addDoc(collection(db, "SwipperMainPage"), {
         image: url,
       });
       setUrl("");
       NotificationManager.success("Image Added", "Success");
-
+      props.onHide();
       return;
     }
   };

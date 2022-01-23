@@ -6,8 +6,7 @@ import "./swipperedit.css";
 import { useGetSwipperData } from "../firebase/mainPageHooks/swapperHook";
 import AddImageModal from "./Modals/AddImageModal";
 import UpdateImageModal from "./Modals/UpdateImageModal";
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../firebase/firebase.Config";
+import DeleteImageModal from "./Modals/DeleteImageModal";
 //this handle swipper image on the main page of the website with CRUD
 //it contains swipper for preview
 //table to show existing images and helps managing them with RUD
@@ -28,18 +27,21 @@ const SwipperEdit = () => {
   const [addImageModalShow, setaddImageModalShow] = useState(false);
   //show modal to update existing images
   const [updateImageModalShow, setupdateImageModalShow] = useState(false);
+  //show modal to delete existing images
+  const [deleteImageModalShow, setdeleteImageModalShow] = useState(false);
+
   //to set item id for managing updates
   const [itemid, setItemId] = useState("");
-  // delete image from database with the image id in the swiper
-  const deleteImage = async (item) => {
-    const noteRef = doc(db, "SwipperMainPage", item);
-    await deleteDoc(noteRef);
-  };
+
   //helper function to update existing image in swiper
   function makeUpdate(id) {
-    console.log(id);
     setItemId(id);
     setupdateImageModalShow(true);
+  }
+  //helper function to delete existing image in swiper
+  function makeDelete(id) {
+    setItemId(id);
+    setdeleteImageModalShow(true);
   }
   return documents.length === 0 ? (
     <div id="wrapper">
@@ -154,10 +156,15 @@ const SwipperEdit = () => {
                         className="btn btn-primary"
                         type="button"
                         style={{ width: "38.6875px", margin: "3px" }}
-                        onClick={() => deleteImage(item.id)}
+                        onClick={() => makeDelete(item.id)}
                       >
                         <i className="fa fa-close"></i>
                       </Button>
+                      <DeleteImageModal
+                        show={deleteImageModalShow}
+                        onHide={() => setdeleteImageModalShow(false)}
+                        image={itemid}
+                      />
                     </td>
                   </tr>
                 ))
