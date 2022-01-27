@@ -6,40 +6,42 @@ import "./swipperedit.css";
 import { useGetSwipperData } from "../firebase/mainPageHooks/swapperHook";
 import AddImageModal from "./Modals/AddImageModal";
 import UpdateImageModal from "./Modals/UpdateImageModal";
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../firebase/firebase.Config";
+import DeleteImageModal from "./Modals/DeleteImageModal";
 //this handle swipper image on the main page of the website with CRUD
 //it contains swipper for preview
 //table to show existing images and helps managing them with RUD
 //button to add images
 const addButtonStyle = {
   margin: "2px",
-  width: "90%",
+  width: "100%",
   padding: " 8px 12px",
   marginBottom: " 5px",
   marginLeft: "5px",
   marginRight: "5px",
   marginTop: "5px",
 };
-const SwipperEdit = () => {
+const SwipperEdit = React.memo(function SwipperEdit() {
   //get images from firestore
   const [documents] = useGetSwipperData();
   //show modal for adding new images
   const [addImageModalShow, setaddImageModalShow] = useState(false);
   //show modal to update existing images
   const [updateImageModalShow, setupdateImageModalShow] = useState(false);
+  //show modal to delete existing images
+  const [deleteImageModalShow, setdeleteImageModalShow] = useState(false);
+
   //to set item id for managing updates
   const [itemid, setItemId] = useState("");
-  // delete image from database with the image id in the swiper
-  const deleteImage = async (item) => {
-    const noteRef = doc(db, "SwipperMainPage", item);
-    await deleteDoc(noteRef);
-  };
+
   //helper function to update existing image in swiper
   function makeUpdate(id) {
-    console.log(id);
     setItemId(id);
     setupdateImageModalShow(true);
+  }
+  //helper function to delete existing image in swiper
+  function makeDelete(id) {
+    setItemId(id);
+    setdeleteImageModalShow(true);
   }
   return documents.length === 0 ? (
     <div id="wrapper">
@@ -47,7 +49,7 @@ const SwipperEdit = () => {
       <div id="content-wrapper" className="d-flex flex-column">
         <div id="content">
           <div className="d-sm-flex justify-content-between align-items-center mb-4">
-            <h3 className="text-dark mb-0">Swipper-editor</h3>
+            <h3 className="text-dark mb-0">تعديل لوحة الاعلانات</h3>
           </div>
           <Spinner
             animation="border"
@@ -70,14 +72,14 @@ const SwipperEdit = () => {
           <Table>
             <thead>
               <tr>
-                <th>id</th>
-                <th>image</th>
-                <th>actions</th>
+                <th>رمز العنصر</th>
+                <th>الصورة</th>
+                <th>الخيارات</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Add Image Its Empty</td>
+                <td>قم باضافة صور </td>
                 <td>...</td>
                 <td>...</td>
               </tr>
@@ -92,7 +94,7 @@ const SwipperEdit = () => {
       <div id="content-wrapper" className="d-flex flex-column">
         <div id="content">
           <div className="d-sm-flex justify-content-between align-items-center mb-4">
-            <h3 className="text-dark mb-0">Swipper-editor</h3>
+            <h3 className="text-dark mb-0">تعديل لوحة الاعلانات</h3>
           </div>
           <Swipper documents={[documents]} />
           <Button
@@ -107,13 +109,22 @@ const SwipperEdit = () => {
             show={addImageModalShow}
             onHide={() => setaddImageModalShow(false)}
           />
-
+          <UpdateImageModal
+            show={updateImageModalShow}
+            onHide={() => setupdateImageModalShow(false)}
+            image={itemid}
+          />
+          <DeleteImageModal
+            show={deleteImageModalShow}
+            onHide={() => setdeleteImageModalShow(false)}
+            image={itemid}
+          />
           <Table>
             <thead>
               <tr>
-                <th>id</th>
-                <th>image</th>
-                <th>actions</th>
+                <th>رمز التعريف</th>
+                <th>الصورة</th>
+                <th>الخيارات</th>
               </tr>
             </thead>
             <tbody>
@@ -145,16 +156,12 @@ const SwipperEdit = () => {
                       >
                         <i className="fa fa-edit"></i>
                       </Button>
-                      <UpdateImageModal
-                        show={updateImageModalShow}
-                        onHide={() => setupdateImageModalShow(false)}
-                        image={itemid}
-                      />
+
                       <Button
                         className="btn btn-primary"
                         type="button"
                         style={{ width: "38.6875px", margin: "3px" }}
-                        onClick={() => deleteImage(item.id)}
+                        onClick={() => makeDelete(item.id)}
                       >
                         <i className="fa fa-close"></i>
                       </Button>
@@ -168,6 +175,6 @@ const SwipperEdit = () => {
       </div>
     </div>
   );
-};
+});
 
 export default SwipperEdit;

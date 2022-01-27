@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { Button, Container, Nav, NavItem } from "react-bootstrap";
+import { Container, Nav, NavItem } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./adminnavbar.css";
+import BtnToTop from "./BtnToTop";
+import Fab from "@mui/material/Fab";
+import { BsFillArrowUpCircleFill } from "react-icons/bs";
 
 /*basic navbar for admin panel  */
 const LogoStyle = {
   fontFamily: "Bangers, serif",
   fontSize: "32px",
 };
-const AdminNavBar = () => {
+const AdminNavBar = (props) => {
   //this state used  to show or hide a dropdown list in the panel
   const [collapsed, setcollapsed] = useState(false);
   const navigate = useNavigate();
@@ -18,6 +21,7 @@ const AdminNavBar = () => {
       <Nav className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
         <Container className="container-fluid d-flex flex-column p-0">
           <a
+            id="back-to-top-anchor"
             className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
             href="/admin"
           >
@@ -69,8 +73,17 @@ const AdminNavBar = () => {
                       >
                         Swipper
                       </a>
-                      <a className="collapse-item" href="cards.html">
-                        Cards
+                      <a
+                        className="collapse-item"
+                        onClick={() => navigate("/lmcards-edit")}
+                      >
+                        LMCards
+                      </a>
+                      <a
+                        className="collapse-item"
+                        onClick={() => navigate("/main-gallery-edit")}
+                      >
+                        MPGallery
                       </a>
                     </div>
                   </div>
@@ -98,16 +111,13 @@ const AdminNavBar = () => {
               </a>
             </NavItem>
           </ul>
-          <div className="text-center d-none d-md-inline">
-            <Button
-              className="btn rounded-circle border-0"
-              id="sidebarToggle"
-              type="button"
-            />
-          </div>
+          <BtnToTop {...props}>
+            <Fab color="primary" size="small" aria-label="scroll back to top">
+              <BsFillArrowUpCircleFill />
+            </Fab>
+          </BtnToTop>
         </Container>
       </Nav>
-      .
     </div>
   );
 };

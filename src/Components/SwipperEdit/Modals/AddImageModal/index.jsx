@@ -1,43 +1,45 @@
 import { Modal, Button } from "react-bootstrap";
-import {
-  collection,
-  addDoc,
-  doc,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../firebase/firebase.Config";
-import { useState } from "react";
 import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
+import TextField from "@mui/material/TextField";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import React from "react";
+const urlRegex =
+  /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
 
-const AddImageModal = (props) => {
-  const [url, setUrl] = useState("");
-  const deleteNote = async (note) => {
-    const noteRef = doc(db, "notes", note.id);
-    await deleteDoc(noteRef);
-  };
-  const updateNote = async (note) => {
-    const noteRef = doc(db, "notes", note.id);
-    await updateDoc(noteRef, {
-      description: "New description",
-    });
-  };
-  const docRef = async () => {
-    if (!url) {
-      NotificationManager.warning("Url is invalid", "Error");
-      return ;
-    } else {
-      await addDoc(collection(db, "SwipperMainPage"), {
-        image: url,
+const AddImageSchema = yup.object().shape({
+  img: yup
+    .string()
+    .required("رابط الصورة مطلوب*")
+    .matches(urlRegex, "أدخل رابط صالح")
+    .min(2, "يجب ان يكون اكثر من حرفين"),
+});
+
+const AddImageModal = React.memo(function AddImageModal(props) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(AddImageSchema),
+  });
+  const onSubmit = async (data) => {
+    const imgRef = collection(db, "SwipperMainPage");
+    await addDoc(imgRef, {
+      image: data.img,
+    })
+      .then(function () {
+        props.onHide();
+      })
+      .catch(function () {
+        NotificationManager.warning("خطأ في الخدمة", "خطأ", 1000);
       });
-      setUrl("");
-      NotificationManager.success("Image Added", "Success");
-
-      return;
-    }
   };
 
   return (
@@ -48,26 +50,33 @@ const AddImageModal = (props) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Add Image</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">إضافة صورة</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <h4>URL:</h4>
-        <input
-          type="text"
-          placeholder="paste image url"
-          style={{ width: "100%" }}
-          onChange={(event) => setUrl(event.target.value)}
-          required
-        ></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-        <Button onClick={docRef} type="submit">
-          Save
-        </Button>
-      </Modal.Footer>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Modal.Body>
+          <div>
+            <TextField
+              helperText={
+                errors.img
+                  ? errors.img.message
+                  : "!قم بادخال رابط الصورة وتأكد ان الصور بنفس الطول و العرض"
+              }
+              label="الرابط"
+              style={{ width: "100%" }}
+              {...register("img")}
+              minLength="5"
+              maxLength="300"
+              error={errors.img ? true : false}
+            />
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={props.onHide}>اغلاق</Button>
+          <Button type="submit">حفظ</Button>
+        </Modal.Footer>
+      </form>
       <NotificationContainer />
     </Modal>
   );
-};
+});
 export default AddImageModal;

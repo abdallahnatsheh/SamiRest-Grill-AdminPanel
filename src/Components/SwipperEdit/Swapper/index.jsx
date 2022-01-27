@@ -35,7 +35,7 @@ const Swipper = (props) => {
       ) : (
         documents.map((item) => (
           <SwiperSlide key={item.id}>
-            <img src={item.data().image} key={item.id} alt="" />
+            <img src={item.data().image} key={item.id} alt={item.id} />
           </SwiperSlide>
         ))
       )}
