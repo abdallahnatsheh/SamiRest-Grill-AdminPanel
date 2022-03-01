@@ -86,6 +86,15 @@ const AdminNavBar = (props) => {
                         MPGallery
                       </a>
                     </div>
+                    <div className="bg-white border rounded py-2 collapse-inner">
+                      <h6 className="collapse-header">Menu</h6>
+                      <a
+                        className="collapse-item"
+                        onClick={() => navigate("/Menu-edit")}
+                      >
+                        MenuList
+                      </a>
+                    </div>
                   </div>
                 ) : (
                   <></>

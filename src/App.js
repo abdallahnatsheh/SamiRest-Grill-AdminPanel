@@ -4,6 +4,7 @@ import AdminPanel from "./Components/AdminPanel";
 import SwipperEdit from "../src/Components/SwipperEdit";
 import LMCardsEdit from "./Components/LMCardsEdit";
 import MPGalleryEdit from "./Components/MPGalleryEdit";
+import Menu from "./Components/Menu";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/lmcards-edit" element={<LMCardsEdit />} />
         <Route exact path="/swipper-edit" element={<SwipperEdit />} />
         <Route exact path="/main-gallery-edit" element={<MPGalleryEdit />} />
+        <Route exact path="/Menu-edit" element={<Menu />} />
       </Routes>
     </div>
   );
