@@ -9,6 +9,7 @@ import EditHeadersModal from "./Modals/EditHeadersModal";
 import UpdateImageModal from "./Modals/UpdateImageModal";
 import AddImageModal from "./Modals/AddImageModal";
 import DeleteImageModal from "./Modals/DeleteImageModal";
+import Header from "../AdminNavBar/Header";
 
 const MPGalleryEdit = React.memo(function MPGalleryEdit() {
   const headingStyle = {
@@ -50,8 +51,10 @@ const MPGalleryEdit = React.memo(function MPGalleryEdit() {
     <div id="wrapper">
       <AdminNavBar />
       <div id="content-wrapper" className="d-flex flex-column">
+        <Header title={"تعديل المعرض للصفحة الرئيسية"} />
+
         <div id="content">
-          <div className="d-sm-flex justify-content-between align-items-center mb-4">
+          <div style={{ alignItems: "center", padding: "10px" }}>
             <h3 className="text-dark mb-0">تعديل المعرض للصفحة الرئيسية</h3>
           </div>
           <Spinner
@@ -111,8 +114,9 @@ const MPGalleryEdit = React.memo(function MPGalleryEdit() {
     <div id="wrapper">
       <AdminNavBar />
       <div id="content-wrapper" className="d-flex flex-column">
+        <Header title={"تعديل المعرض للصفحة الرئيسية"} />
         <div id="content">
-          <div className="d-sm-flex justify-content-between align-items-center mb-4">
+          <div style={{ alignItems: "center", padding: "10px" }}>
             <h3 className="text-dark mb-0">تعديل المعرض للصفحة الرئيسية</h3>
           </div>
           <Container className="container">

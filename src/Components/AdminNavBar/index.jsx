@@ -6,7 +6,7 @@ import BtnToTop from "./BtnToTop";
 import Fab from "@mui/material/Fab";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 
-/*basic navbar for admin panel  */
+/*basic navbar htmlFor admin panel  */
 const LogoStyle = {
   fontFamily: "Bangers, serif",
   fontSize: "32px",
@@ -32,21 +32,21 @@ const AdminNavBar = (props) => {
           <hr className="sidebar-divider my-0" />
           <ul className="navbar-nav text-light" id="accordionSidebar">
             <NavItem className="nav-item">
-              <a className="nav-link active" href="/">
+              <a className="nav-link active" onClick={() => navigate("/")}>
                 <i className="fas fa-tachometer-alt" />
-                <span>Dashboard</span>
+                <span>الصفحة الرئيسية</span>
               </a>
             </NavItem>
             <NavItem className="nav-item">
-              <a className="nav-link" href="orders.html">
+              <a className="nav-link" onClick={() => navigate("/orders")}>
                 <i className="fa fa-cutlery" />
-                <span>Orders</span>
+                <span>الطلبات</span>
               </a>
             </NavItem>
             <NavItem className="nav-item">
-              <a className="nav-link" href="profile.html">
+              <a className="nav-link">
                 <i className="fas fa-user" />
-                <span>Profile</span>
+                <span>الحساب</span>
               </a>
             </NavItem>
             <NavItem className="nav-item">
@@ -61,7 +61,7 @@ const AdminNavBar = (props) => {
                   onClick={() => setcollapsed(!collapsed)}
                 >
                   <i className="fas fa-cog" />
-                  &nbsp;<span>Editor</span>
+                  &nbsp;<span>التعديل</span>
                 </a>
                 {collapsed ? (
                   <div className="collapse show" id="collapse-4">
@@ -71,19 +71,19 @@ const AdminNavBar = (props) => {
                         className="collapse-item"
                         onClick={() => navigate("/swipper-edit")}
                       >
-                        Swipper
+                        لوحة الاعلانات
                       </a>
                       <a
                         className="collapse-item"
                         onClick={() => navigate("/lmcards-edit")}
                       >
-                        LMCards
+                        اجدد الوجبات
                       </a>
                       <a
                         className="collapse-item"
                         onClick={() => navigate("/main-gallery-edit")}
                       >
-                        MPGallery
+                        المعرض
                       </a>
                     </div>
                     <div className="bg-white border rounded py-2 collapse-inner">
@@ -92,7 +92,7 @@ const AdminNavBar = (props) => {
                         className="collapse-item"
                         onClick={() => navigate("/Menu-edit")}
                       >
-                        MenuList
+                        قائمةالوجبات
                       </a>
                     </div>
                   </div>
@@ -104,19 +104,19 @@ const AdminNavBar = (props) => {
             <NavItem className="nav-item">
               <a className="nav-link" href="table.html">
                 <i className="fas fa-table" />
-                <span>Table</span>&nbsp;employees
+                <span>جدول</span>&nbsp;الموظفين
               </a>
             </NavItem>
             <NavItem className="nav-item">
-              <a className="nav-link" href="login.html">
+              <a className="nav-link" onClick={() => navigate("/login")}>
                 <i className="far fa-user-circle" />
-                <span>Login</span>
+                <span>تسجيل الدخول</span>
               </a>
             </NavItem>
             <NavItem className="nav-item">
               <a className="nav-link" href="register.html">
                 <i className="fas fa-user-circle" />
-                <span>Register emplyee</span>
+                <span>إضافة الموظفين</span>
               </a>
             </NavItem>
           </ul>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Spinner, Button, Table } from "react-bootstrap";
 import AdminNavBar from "../AdminNavBar";
+import Header from "../AdminNavBar/Header";
 import { useGetLmcardsData } from "../firebase/mainPageHooks/lmcardsHook";
 import LMCard from "./LMCards";
 import AddCardsModal from "./Modals/AddCardsModal";
@@ -40,8 +41,10 @@ const LMCardsEdit = React.memo(function LMCardsEdit() {
     <div id="wrapper">
       <AdminNavBar />
       <div id="content-wrapper" className="d-flex flex-column">
+        <Header title={"تعديل قائمة اجدد الوجبات"} />
+
         <div id="content">
-          <div className="d-sm-flex justify-content-between align-items-center mb-4">
+          <div style={{ alignItems: "center", padding: "10px" }}>
             <h3 className="text-dark mb-0">تعديل قائمة اجدد الوجبات</h3>
           </div>
           <Spinner
@@ -102,9 +105,12 @@ const LMCardsEdit = React.memo(function LMCardsEdit() {
   ) : (
     <div id="wrapper">
       <AdminNavBar />
+
       <div id="content-wrapper" className="d-flex flex-column">
+        <Header title={"تعديل قائمة اجدد الوجبات"} />
+
         <div id="content">
-          <div className="d-sm-flex justify-content-between align-items-center mb-4">
+          <div style={{ alignItems: "center", padding: "10px" }}>
             <h3 className="text-dark mb-0">تعديل قائمة اجدد الوجبات</h3>
           </div>
           <LMCard title={header[0]} paragraph={header[1]} cards={cards} />

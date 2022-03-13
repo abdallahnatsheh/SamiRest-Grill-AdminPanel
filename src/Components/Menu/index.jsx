@@ -7,6 +7,7 @@ import AddMealModal from "./Modal/AddMealModal";
 import { useGetMainMenuMeals } from "../firebase/mainMenuHooks/mainMenuHook";
 import UpdateMealModal from "./Modal/UpdateMealModal";
 import DeleteMealModal from "./Modal/DeleteMealModal";
+import Header from "../AdminNavBar/Header";
 const addButtonStyle = {
   margin: "2px",
   width: "99%",
@@ -41,6 +42,7 @@ const Menu = () => {
     <div id="wrapper">
       <AdminNavBar />
       <div id="content-wrapper" className="d-flex flex-column">
+        <Header title={"تعديل قائمةالوجبات"} />
         <div id="content">
           <div style={{ alignItems: "center" }}>
             <h3 className="text-dark mb-0">تعديل قائمةالوجبات</h3>

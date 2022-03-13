@@ -7,6 +7,7 @@ import { useGetSwipperData } from "../firebase/mainPageHooks/swapperHook";
 import AddImageModal from "./Modals/AddImageModal";
 import UpdateImageModal from "./Modals/UpdateImageModal";
 import DeleteImageModal from "./Modals/DeleteImageModal";
+import Header from "../AdminNavBar/Header";
 //this handle swipper image on the main page of the website with CRUD
 //it contains swipper for preview
 //table to show existing images and helps managing them with RUD
@@ -47,8 +48,9 @@ const SwipperEdit = React.memo(function SwipperEdit() {
     <div id="wrapper">
       <AdminNavBar />
       <div id="content-wrapper" className="d-flex flex-column">
+        <Header title={"تعديل لوحة الاعلانات"} />
         <div id="content">
-          <div className="d-sm-flex justify-content-between align-items-center mb-4">
+          <div style={{ alignItems: "center", padding: "10px" }}>
             <h3 className="text-dark mb-0">تعديل لوحة الاعلانات</h3>
           </div>
           <Spinner
@@ -62,7 +64,7 @@ const SwipperEdit = React.memo(function SwipperEdit() {
             style={addButtonStyle}
             onClick={() => setaddImageModalShow(true)}
           >
-            Add Image
+            إضافة إعلان
           </Button>
           <AddImageModal
             show={addImageModalShow}
@@ -92,8 +94,9 @@ const SwipperEdit = React.memo(function SwipperEdit() {
     <div id="wrapper">
       <AdminNavBar />
       <div id="content-wrapper" className="d-flex flex-column">
+        <Header title={"تعديل لوحة الاعلانات"} />
         <div id="content">
-          <div className="d-sm-flex justify-content-between align-items-center mb-4">
+          <div style={{ alignItems: "center", padding: "10px" }}>
             <h3 className="text-dark mb-0">تعديل لوحة الاعلانات</h3>
           </div>
           <Swipper documents={[documents]} />
@@ -103,7 +106,7 @@ const SwipperEdit = React.memo(function SwipperEdit() {
             style={addButtonStyle}
             onClick={() => setaddImageModalShow(true)}
           >
-            Add Image
+            إضافة إعلان
           </Button>
           <AddImageModal
             show={addImageModalShow}
