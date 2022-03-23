@@ -5,8 +5,9 @@ import "./adminnavbar.css";
 import BtnToTop from "./BtnToTop";
 import Fab from "@mui/material/Fab";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
+import { useAuth } from "../../context/AuthContext";
 
-/*basic navbar for admin panel  */
+/*basic navbar htmlFor admin panel  */
 const LogoStyle = {
   fontFamily: "Bangers, serif",
   fontSize: "32px",
@@ -15,7 +16,7 @@ const AdminNavBar = (props) => {
   //this state used  to show or hide a dropdown list in the panel
   const [collapsed, setcollapsed] = useState(false);
   const navigate = useNavigate();
-
+  const { logout, dataUser } = useAuth();
   return (
     <div id="wrapper">
       <Nav className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
@@ -23,7 +24,7 @@ const AdminNavBar = (props) => {
           <a
             id="back-to-top-anchor"
             className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
-            href="/admin"
+            href="/"
           >
             <div className="sidebar-brand-text mx-3" font="Bangers">
               <span style={LogoStyle}>SAMI GRILL</span>
@@ -32,82 +33,117 @@ const AdminNavBar = (props) => {
           <hr className="sidebar-divider my-0" />
           <ul className="navbar-nav text-light" id="accordionSidebar">
             <NavItem className="nav-item">
-              <a className="nav-link active" href="/">
+              <a className="nav-link active" onClick={() => navigate("/")}>
                 <i className="fas fa-tachometer-alt" />
-                <span>Dashboard</span>
+                <span>الصفحة الرئيسية</span>
               </a>
             </NavItem>
             <NavItem className="nav-item">
-              <a className="nav-link" href="orders.html">
+              <a className="nav-link" onClick={() => navigate("/orders")}>
                 <i className="fa fa-cutlery" />
-                <span>Orders</span>
+                <span>الطلبات</span>
               </a>
             </NavItem>
-            <NavItem className="nav-item">
-              <a className="nav-link" href="profile.html">
-                <i className="fas fa-user" />
-                <span>Profile</span>
-              </a>
-            </NavItem>
-            <NavItem className="nav-item">
-              <div>
-                <a
-                  className="btn btn-link nav-link"
-                  data-bs-toggle="collapse"
-                  aria-expanded="true"
-                  aria-controls="collapse-4"
-                  href="#collapse-4"
-                  role="button"
-                  onClick={() => setcollapsed(!collapsed)}
-                >
-                  <i className="fas fa-cog" />
-                  &nbsp;<span>Editor</span>
+            {dataUser.isAdmin ? (
+              <NavItem className="nav-item">
+                <a className="nav-link" onClick={() => navigate("/support")}>
+                  <i className="fa fa-envelope" />
+                  <span>دعم فني</span>
                 </a>
-                {collapsed ? (
-                  <div className="collapse show" id="collapse-4">
-                    <div className="bg-white border rounded py-2 collapse-inner">
-                      <h6 className="collapse-header">Main Page</h6>
-                      <a
-                        className="collapse-item"
-                        onClick={() => navigate("/swipper-edit")}
-                      >
-                        Swipper
-                      </a>
-                      <a
-                        className="collapse-item"
-                        onClick={() => navigate("/lmcards-edit")}
-                      >
-                        LMCards
-                      </a>
-                      <a
-                        className="collapse-item"
-                        onClick={() => navigate("/main-gallery-edit")}
-                      >
-                        MPGallery
-                      </a>
+              </NavItem>
+            ) : (
+              ""
+            )}
+
+            <NavItem className="nav-item">
+              <a className="nav-link" onClick={() => navigate("/profile")}>
+                <i className="fas fa-user" />
+                <span>الحساب</span>
+              </a>
+            </NavItem>
+            {dataUser.isAdmin ? (
+              <NavItem className="nav-item">
+                <div>
+                  <a
+                    className="btn btn-link nav-link"
+                    data-bs-toggle="collapse"
+                    aria-expanded="true"
+                    aria-controls="collapse-4"
+                    role="button"
+                    onClick={() => setcollapsed(!collapsed)}
+                  >
+                    <i className="fas fa-cog" />
+                    &nbsp;<span>التعديل</span>
+                  </a>
+                  {collapsed ? (
+                    <div className="collapse show" id="collapse-4">
+                      <div className="bg-white border rounded py-2 collapse-inner">
+                        <h6 className="collapse-header">Main Page</h6>
+                        <a
+                          className="collapse-item"
+                          onClick={() => navigate("/swipper-edit")}
+                        >
+                          لوحة الاعلانات
+                        </a>
+                        <a
+                          className="collapse-item"
+                          onClick={() => navigate("/lmcards-edit")}
+                        >
+                          اجدد الوجبات
+                        </a>
+                        <a
+                          className="collapse-item"
+                          onClick={() => navigate("/main-gallery-edit")}
+                        >
+                          المعرض
+                        </a>
+                      </div>
+                      <div className="bg-white border rounded py-2 collapse-inner">
+                        <h6 className="collapse-header">Menu</h6>
+                        <a
+                          className="collapse-item"
+                          onClick={() => navigate("/Menu-edit")}
+                        >
+                          قائمةالوجبات
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            </NavItem>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </NavItem>
+            ) : (
+              ""
+            )}
+            {dataUser.isAdmin ? (
+              <NavItem className="nav-item">
+                <a className="nav-link" onClick={() => navigate("/team-table")}>
+                  <i className="fas fa-table" />
+                  <span>جدول</span>&nbsp;الموظفين
+                </a>
+              </NavItem>
+            ) : (
+              ""
+            )}
+            {dataUser.isAdmin ? (
+              <NavItem className="nav-item">
+                <a
+                  className="nav-link"
+                  onClick={() => navigate("/register-employee")}
+                >
+                  <i className="fas fa-user-circle" />
+                  <span>إضافة الموظفين</span>
+                </a>
+              </NavItem>
+            ) : (
+              ""
+            )}
+
             <NavItem className="nav-item">
-              <a className="nav-link" href="table.html">
-                <i className="fas fa-table" />
-                <span>Table</span>&nbsp;employees
-              </a>
-            </NavItem>
-            <NavItem className="nav-item">
-              <a className="nav-link" href="login.html">
+              <a className="nav-link" onClick={() => logout()}>
                 <i className="far fa-user-circle" />
-                <span>Login</span>
-              </a>
-            </NavItem>
-            <NavItem className="nav-item">
-              <a className="nav-link" href="register.html">
-                <i className="fas fa-user-circle" />
-                <span>Register emplyee</span>
+                <span>تسجيل الخروج</span>
               </a>
             </NavItem>
           </ul>

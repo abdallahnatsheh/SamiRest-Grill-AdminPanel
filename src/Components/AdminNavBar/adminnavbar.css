@@ -47,3 +47,60 @@
 *::after {
   box-sizing: border-box;
 }
+.topbar {
+  height: 4.375rem;
+}
+
+.bg-white {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.shadow {
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
+
+.navbar-expand {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+.nav-item .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgba(255, 255, 255, 0.829);
+  color: #000;
+  text-align: center;
+  border-radius: 100px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.nav-item:hover .tooltiptext {
+  visibility: visible;
+}

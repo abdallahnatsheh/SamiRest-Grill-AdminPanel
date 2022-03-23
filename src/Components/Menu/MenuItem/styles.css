@@ -1,0 +1,80 @@
+main {
+  padding-top: 3.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  grid-row-gap: 5rem;
+}
+
+@media (max-width: 935px) {
+  main {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 735px) {
+  main {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 535px) {
+  main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 335px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+.menuItems {
+  width: 150px;
+  padding: 0 0.8rem 0.8rem 0.8rem;
+  background-color: #d28d08;
+  border-radius: 30px;
+  text-align: center;
+  flex-direction: column;
+  display: flex;
+  color: #000;
+}
+.item-food-discount {
+  margin: 5px;
+}
+#menuImages {
+  margin-top: -3.5rem;
+  height: 130px;
+  object-fit: contain;
+}
+.item-foot_desc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.item-foot_desc button {
+  background: #000;
+  color: #fff;
+  border-radius: 50%;
+}
+.item-head_desc {
+  text-align: left;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.head_desc-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  flex: 1;
+}
+.head_desc-info {
+  font-size: 0.8rem;
+  color: #a0a0a0;
+}
+.foot_desc-price {
+  font-weight: 700;
+}
