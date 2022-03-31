@@ -6,9 +6,9 @@ import { useEmpTableHook } from "./empTableHook";
 const EmpTable = () => {
   const [documents] = useEmpTableHook();
   const roleing = {
-    recption: "عامل توصيل",
+    recption: "عامل طلبات",
     admin: "مسؤول",
-    driver: "عامل طلبات",
+    driver: "عامل توصيل",
   };
   return documents.length !== 0 ? (
     <div id="wrapper">
@@ -29,6 +29,7 @@ const EmpTable = () => {
                   <thead>
                     <tr>
                       <th>#</th>
+                      <th>رمز تعريفي</th>
                       <th>الاسم</th>
                       <th>صلاحيات</th>
                     </tr>
@@ -37,6 +38,7 @@ const EmpTable = () => {
                     {documents.map((employee, index) => (
                       <tr key={employee.data().uid}>
                         <td>{index + 1}</td>
+                        <td>{employee.data().uid}</td>
                         <td>
                           <img
                             className="rounded-circle me-2"

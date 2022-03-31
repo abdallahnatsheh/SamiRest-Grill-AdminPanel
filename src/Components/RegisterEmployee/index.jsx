@@ -1,29 +1,41 @@
 import React from "react";
 import AdminNavBar from "../AdminNavBar";
 import Header from "../AdminNavBar/Header";
-import { Container } from "react-bootstrap";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Button, Container } from "react-bootstrap";
+import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../../context/AuthContext";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const errorStyling = {
-  color: "rgb(0,0,0)",
+  color: "rgb(255,0,0)",
 };
+const AddImageSchema = yup.object().shape({
+  id: yup.string(),
+});
 
 const RegisterEmployee = () => {
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
   const onealpha = /[a-z]/i;
   const onenum = /[0-9~!@#$%^&*()_+\-={}|[\]\\:";'<>?,./]/i;
-  const { signUp } = useAuth();
+  const { signUp, deleteEmp } = useAuth();
 
+  const { register, handleSubmit } = useForm({
+    resolver: yupResolver(AddImageSchema),
+  });
+  const onSubmit = async (data) => {
+    await deleteEmp(data.id);
+  };
   return (
     <div id="wrapper">
       <AdminNavBar />
       <div id="content-wrapper" className="d-flex flex-column">
-        <Header title={"إضافة موظفين"} />
+        <Header title={"إدارة الموظفين"} />
         <div id="content">
           <div style={{ alignItems: "center", padding: "10px" }}>
-            <h3 className="text-dark mb-0"> إضافة موظفين</h3>
+            <h3 className="text-dark mb-0"> إضافة الموظفين</h3>
           </div>
           <Formik
             initialValues={{
@@ -58,8 +70,7 @@ const RegisterEmployee = () => {
             {({ isSubmitting, handleChange, handleBlur, values }) => (
               <section>
                 <Container className="form-container">
-                  <div className="image-holder"></div>
-                  <Form>
+                  <Form key={1} id="form1">
                     <div className="mb-3">
                       <Field
                         id="exampleInputEmail"
@@ -159,6 +170,33 @@ const RegisterEmployee = () => {
               </section>
             )}
           </Formik>
+        </div>
+        <div id="content">
+          <Container className="form-container">
+            <div style={{ alignItems: "center", padding: "10px" }}>
+              <h3 className="text-dark mb-0"> حذف الموظفين</h3>
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)} id="form2">
+              <input
+                type="text"
+                className="form-control border rounded-pill"
+                placeholder="الرمز التعريفي للموظف"
+                label="الرابط"
+                style={{ width: "100%" }}
+                {...register("id")}
+                minLength="25"
+                maxLength="50"
+                required
+              />
+              <br />
+              <Button
+                className="btn btn-primary border rounded-pill d-block btn-user w-100"
+                type="submit"
+              >
+                إحذف
+              </Button>
+            </form>
+          </Container>
         </div>
       </div>
     </div>
